@@ -1,1 +1,0 @@
-# mkgaleri.github.io
