@@ -53,9 +53,15 @@ body {
 }
 
 h1 {
+    text-align: center;
     color: var(--barnred);
     transition: all 1s ease-in-out;
     animation: blink 1s infinite;
+}
+
+h4 {
+    text-align: center;
+    transition: all 1s ease-in-out;
 }
 
 @keyframes blink {
@@ -67,5 +73,17 @@ h1 {
     }
     100% {
         opacity: 1;
+    }
+}
+
+@media (max-width: 1080px) {
+    html {
+        font-size: 75%;
+    }
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 50%;
     }
 }
