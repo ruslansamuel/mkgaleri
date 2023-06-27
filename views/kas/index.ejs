@@ -1,0 +1,55 @@
+<div class="text-center mb-3">
+  <h1 class="text-center fw-bold">TAHUN KAS</h1>
+  <a href="#" class="btn btn-dark bg-gradient" data-bs-toggle="modal" data-bs-target="#modalKas"><i class="bi bi-plus-lg"></i> Tambah</a>
+  <a href="/kas/remove" class="btn btn-dark bg-gradient" onclick="return confirm('Hapus semua tahun kas?')"><i class="bi bi-trash3"></i> Hapus Semua</a>
+</div>
+<% if (info.length !== 0) { %>
+  <div class="alert alert-success shadow w-50 mx-auto" role="alert">
+    <p class="text-center m-0"><%= info %></p>
+  </div>
+<% } %>
+<% if (typeof errors != "undefined") { %>
+  <div class="alert alert-danger shadow w-50 mx-auto" role="alert">
+    <h4 class="alert-heading">Gagal Menambahkan Kas!</h4>
+    <% errors.forEach(error => { %>
+      <p class="m-0">- <%= error.msg %></p>
+    <% }) %>
+  </div>
+<% } %>
+<div class="list-group w-50 shadow mx-auto">
+    <% if (kasTahun.length === 0) { %>
+      <a href="/kas" class="list-group-item list-group-item-action text-center">Tidak ada data tersedia!</a>
+    <% }else{ %>
+      <% kasTahun.forEach((kt,i) => { %>
+        <a href="<%= `/kas/${kt.id}` %>" class="list-group-item list-group-item-action d-flex justify-content-between" aria-current="true">
+            <span><%= i + 1 %>. <%= kt.tahun %></span>
+            <span>Rp <%= new Intl.NumberFormat("id-ID").format(kt.jumlah) %></span>
+          </a>
+      <% }) %>
+    <% } %>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalKas" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalKasLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalKasLabel">Tambah Tahun Kas</h1>
+      </div>
+      <form action="/kas" method="post">
+        <div class="modal-body">
+          <input type="hidden" id="id" name="id" value="<%= Date.now() %>">
+          <div class="form-floating">
+            <input type="number" class="form-control shadow" minlength="4" maxlength="4" id="tahun" name="tahun" placeholder="Tahun" required>
+            <label for="tahun">Tahun</label>
+            <input type="hidden" id="jumlah" name="jumlah" value="0">
+          </div>
+        </div>
+        <div class="modal-footer p-2">
+          <button type="submit" class="btn btn-dark bg-gradient shadow"><i class="bi bi-check2-all me-2"></i>Simpan</button>
+          <button type="button" class="btn btn-secondary bg-gradient shadow" data-bs-dismiss="modal"><i class="bi bi-x-lg me-2"></i>Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

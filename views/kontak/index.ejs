@@ -1,0 +1,62 @@
+<div class="text-center mb-3">
+  <h1 class="text-center fw-bold">DAFTAR KONTAK</h1>
+  <a href="#" class="btn btn-dark bg-gradient" data-bs-toggle="modal" data-bs-target="#modalKontak"><i class="bi bi-plus-lg"></i> Tambah</a>
+  <a href="/kontak/remove" class="btn btn-dark bg-gradient" onclick="return confirm('Hapus semua kontak?')"><i class="bi bi-trash3"></i> Hapus Semua</a>
+</div>
+<% if (info.length !== 0) { %>
+  <div class="alert alert-success shadow" role="alert">
+    <p class="text-center m-0"><%= info %></p>
+  </div>
+<% } %>
+<% if (typeof errors != "undefined") { %>
+  <div class="alert alert-danger shadow" role="alert">
+    <h4 class="alert-heading">Gagal Menambahkan Kontak!</h4>
+    <% errors.forEach(error => { %>
+      <p class="m-0">- <%= error.msg %></p>
+    <% }) %>
+  </div>
+<% } %>
+<div class="list-group w-50 shadow mx-auto">
+    <% if (contacts.length === 0) { %>
+      <a href="/" class="list-group-item list-group-item-action text-center">Tidak ada data tersedia!</a>
+    <% }else{ %>
+      <% contacts.forEach(c => { %>
+        <a href="<%= `/kontak/${c.id}` %>" class="list-group-item list-group-item-action d-flex justify-content-between" aria-current="true">
+            <span><i class="bi bi-person-circle me-2"></i><%= c.nama %></span>
+            <span><%= c.nohp %></span>
+          </a>
+      <% }) %>
+    <% } %>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalKontak" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalKontakLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalKontakLabel">Tambah Kontak</h1>
+      </div>
+      <form action="/kontak" method="post">
+        <div class="modal-body">
+          <input type="hidden" id="id" name="id" value="<%= Date.now() %>">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control shadow" id="nama" name="nama" placeholder="Nama Lengkap" required>
+            <label for="nama">Nama Lengkap</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control shadow" id="nohp" name="nohp" placeholder="No. HP / WA" required>
+            <label for="nohp">No. HP / WA</label>
+          </div>
+          <div class="form-floating">
+            <input type="email" class="form-control shadow" id="email" name="email" placeholder="Email" required>
+            <label for="email">Email</label>
+          </div>
+        </div>
+        <div class="modal-footer p-2">
+          <button type="submit" class="btn btn-dark bg-gradient shadow"><i class="bi bi-check2-all me-2"></i>Simpan</button>
+          <button type="button" class="btn btn-secondary bg-gradient shadow" data-bs-dismiss="modal"><i class="bi bi-x-lg me-2"></i>Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

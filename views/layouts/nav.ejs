@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-gradient bg-dark shadow mb-3">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="#"><%= judul %></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link <%= judul == 'Beranda' ? 'active fw-bold bg-light bg-gradient text-dark rounded px-3' : '' %>" href="/">Beranda</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <%= judul == 'Kontak' ? 'active fw-bold bg-light bg-gradient text-dark rounded px-3' : '' %>" href="/kontak">Kontak</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <%= judul == 'Uang Kas' ? 'active fw-bold bg-light bg-gradient text-dark rounded px-3' : '' %>" href="/kas">Uang Kas</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

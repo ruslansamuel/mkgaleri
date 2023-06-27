@@ -1,0 +1,67 @@
+<h1 class="text-center fw-bold mb-3">DETAIL KONTAK</h1>
+<% if (info.length !== 0) { %>
+  <div class="alert alert-success shadow" role="alert">
+    <p class="text-center m-0"><%= info %></p>
+  </div>
+<% } %>
+<% if (typeof errors != "undefined") { %>
+  <div class="alert alert-danger shadow" role="alert">
+    <h4 class="alert-heading">Gagal Mengubah Kontak!</h4>
+    <% errors.forEach(error => { %>
+      <p class="m-0">- <%= error.msg %></p>
+    <% }) %>
+  </div>
+<% } %>
+<% if (!contact) { %>
+    <div class="alert alert-dark text-center w-50 shadow mx-auto" role="alert">
+        <h4 class="alert-heading">Kontak tidak ada!</h4>
+        <p class="m-0">kembali ke <a href="/kontak" class="fw-bold text-decoration-none alert-link">Daftar Kontak</a></p>
+    </div>
+<% }else{ %>
+    <div class="card w-50 mx-auto shadow">
+      <div class="card-body text-center">
+        <i class="bi bi-person-circle display-1"></i>
+        <h5 class="card-title mt-3"><%= contact.nama %></h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary"><%= contact.nohp %></h6>
+        <p class="card-text"><%= contact.email %></p>
+        <a href="/kontak" class="badge rounded-pill text-bg-dark bg-gradient shadow text-decoration-none px-2"><i class="bi bi-chevron-left me-1"></i>Kembali</a>
+        <a href="#" class="badge rounded-pill text-bg-dark bg-gradient shadow text-decoration-none px-2" data-bs-toggle="modal" data-bs-target="#modalKontak"><i class="bi bi-pencil me-1"></i>Ubah</a>
+        <a href="/kontak/hapus/<%= contact.id %>" class="badge rounded-pill text-bg-dark bg-gradient shadow text-decoration-none px-2" onclick="return confirm('Hapus kontak ini?')"><i class="bi bi-trash3 me-1"></i>Hapus</a>
+      </div>
+    </div>
+<% } %>
+
+<!-- Modal -->
+<div class="modal fade" id="modalKontak" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalKontakLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalKontakLabel">Tambah Kontak</h1>
+      </div>
+      <form action="/kontak/<%= contact.id %>" method="post">
+        <div class="modal-body">
+          <input type="hidden" id="id" name="id" value="<%= contact.id %>">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control shadow" id="nama" name="nama" placeholder="Nama Lengkap" value="<%= contact.nama %>" required>
+            <input type="hidden" class="form-control shadow" id="namalama" name="namalama" placeholder="Nama Lengkap" value="<%= contact.nama %>" required>
+            <label for="nama">Nama Lengkap</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control shadow" id="nohp" name="nohp" placeholder="No. HP / WA" value="<%= contact.nohp %>" required>
+            <input type="hidden" class="form-control shadow" id="nohplama" name="nohplama" placeholder="No. HP / WA" value="<%= contact.nohp %>" required>
+            <label for="nohp">No. HP / WA</label>
+          </div>
+          <div class="form-floating">
+            <input type="email" class="form-control shadow" id="email" name="email" placeholder="Email" value="<%= contact.email %>" required>
+            <input type="hidden" class="form-control shadow" id="emaillama" name="emaillama" placeholder="Email" value="<%= contact.email %>" required>
+            <label for="email">Email</label>
+          </div>
+        </div>
+        <div class="modal-footer p-2">
+          <button type="submit" class="btn btn-dark bg-gradient shadow"><i class="bi bi-check2-all me-2"></i>Simpan</button>
+          <button type="button" class="btn btn-secondary bg-gradient shadow" data-bs-dismiss="modal"><i class="bi bi-x-lg me-2"></i>Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
